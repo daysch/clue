@@ -164,7 +164,7 @@ def get_guess(prompt):
 
     # check if user cancelled
     if guess == "cancel":
-        os,system("clear")
+        os.system("clear")
         return "cancel"
 
     # parse guess
