@@ -27,12 +27,13 @@ def game():
         if answer == "recover":
             try:
                 # load previous game data
-                gameData = pickle.load(open("prev_game.p","rb"))
-                guilty = gameData["guilty"]
-                players = gameData["players"]
-                player0 = gameData["player0"]
-                player1 = gameData["player1"]
-                computerCards = gameData["computerCards"]
+                with open("prev_game.p","rb") as file:
+                    gameData = pickle.load(file)
+                    guilty = gameData["guilty"]
+                    players = gameData["players"]
+                    player0 = gameData["player0"]
+                    player1 = gameData["player1"]
+                    computerCards = gameData["computerCards"]
             except Exception as e:
                 print(colored("Unable to load previous game data","red"))
                 raise e
@@ -67,7 +68,8 @@ def game():
             computerCards = set(allCards)
 
             # save data in case we need to recover it
-            pickle.dump({"players":players,"guilty":guilty,"player0":player0,"player1":player1,"computerCards":computerCards},open("prev_game.p","wb"))
+            with open("prev_game.p","wb") as file:
+                pickle.dump({"players":players,"guilty":guilty,"player0":player0,"player1":player1,"computerCards":computerCards}, file)
 
             break
     # reveal players' cards
